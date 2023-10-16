@@ -1,0 +1,33 @@
+.homepage {
+  width: 80%;
+  margin: auto;
+  padding: 50px 0;
+
+  display: grid;
+  justify-content: center;
+}
+
+h1 {
+  text-align: center;
+}
+
+.buttons {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.product-button {
+  margin-right: 10px;
+  margin-bottom: 10px;
+  padding: 10px 40px;
+  font-weight: 500;
+  font-size: 15px;
+  background: #fff;
+  border: 1px solid var(lightgray);
+  cursor: pointer;
+  transition: 0.3s all ease;
+  border-radius: 4px;
+}
