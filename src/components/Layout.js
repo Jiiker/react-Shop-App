@@ -4,11 +4,11 @@ import Header from "./header";
 import Footer from "./footer";
 import "./Layout.css";
 
-export const Layout = () => {
+export const Layout = ({ cartCounter, logOn, setLogOn }) => {
   return (
     <>
       <div className='wrapper'>
-        <Header />
+        <Header cartCounter={cartCounter} logOn={logOn} setLogOn={setLogOn} />
         <Outlet />
       </div>
       <Footer />

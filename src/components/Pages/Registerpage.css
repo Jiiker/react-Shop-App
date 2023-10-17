@@ -1,32 +1,32 @@
-/* Loginpage.css */
-.login-page {
-  padding-top: 100px;
+/* Registerpage.css */
+.regi-page {
   max-width: 300px;
-  margin: 0 auto;
+  padding-top: 100px;
+  margin: auto;
 }
 
-.login-page-wrap {
+.regi-page-wrap {
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
   background: #fff;
 }
 
-.login-title {
+.regi-title {
   font-size: 24px;
   font-weight: bold;
   margin-bottom: 20px;
   text-align: center;
 }
 
-.login-email,
-.login-password {
+.regi-eamil,
+.regi-password {
   font-size: 16px;
   margin-bottom: 8px;
 }
 
-.login-email-input,
-.login-password-input {
+.regi-email-input,
+.regi-password-input {
   width: 90%;
   padding: 10px;
   margin-bottom: 16px;
@@ -35,7 +35,7 @@
   font-size: 16px;
 }
 
-.login-submit-btn {
+.regi-submit-btn {
   width: 100%;
   background: #007bff;
   color: #fff;
@@ -46,21 +46,6 @@
   cursor: pointer;
 }
 
-.login-submit-btn:hover {
+.regi-submit-btn:hover {
   background: #0056b3;
-}
-
-.login-create-btn {
-  width: 100%;
-  background: #eee;
-  color: #333;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.login-create-btn:hover {
-  background: #ccc;
 }

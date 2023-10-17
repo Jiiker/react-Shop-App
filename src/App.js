@@ -3,14 +3,18 @@ import { BrowserRouter, Route, Routes, useParams } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import Homepage from "./components/Pages/Homepage";
 import Loginpage from "./components/Pages/Loginpage";
+import Registerpage from "./components/Pages/Registerpage";
 import Detailpage from "./components/Pages/Detailpage";
 import Cartpage from "./components/Pages/Cartpage";
 import request from "./api/axios";
+import app from "./Firebase";
 
 function App() {
   const [productList, setProductList] = useState([]);
   const { productID } = useParams();
   const [cartList, setCartList] = useState([]);
+  const [cartCounter, setCartCounter] = useState(0);
+  const [logOn, setLogOn] = useState(false);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -34,16 +38,35 @@ function App() {
     }
 
     setCartList(updatedCart);
+    totalCount();
   }
 
   function updateCart(newCartList) {
     setCartList(newCartList);
+    totalCount();
+  }
+
+  function totalCount() {
+    let sum = 0;
+    cartList.map((item) => {
+      sum = sum + item.count;
+    });
+    setCartCounter(sum);
   }
 
   return (
     <BrowserRouter>
       <Routes>
-        <Route path='/' element={<Layout />}>
+        <Route
+          path='/'
+          element={
+            <Layout
+              cartCounter={cartCounter}
+              logOn={logOn}
+              setLogOn={setLogOn}
+            />
+          }
+        >
           <Route
             index
             element={
@@ -54,7 +77,11 @@ function App() {
               />
             }
           ></Route>
-          <Route path='/Loginpage' element={<Loginpage />}></Route>
+          <Route
+            path='/Loginpage'
+            element={<Loginpage logOn={logOn} />}
+          ></Route>
+          <Route path='/Registerpage' element={<Registerpage />}></Route>
           <Route
             path='/Detailpage/:productID'
             element={
