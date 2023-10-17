@@ -5,8 +5,21 @@ import Usericon from "../icons/person.svg";
 import Loginicon from "../icons/indent.svg";
 import Logouticon from "../icons/box-arrow-right.svg";
 import { Link } from "react-router-dom";
+import { getAuth, signOut } from "firebase/auth";
 
 export const Header = ({ cartCounter, logOn, setLogOn }) => {
+  function handleLogout() {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        setLogOn(false);
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  }
+
   return (
     <div className='header'>
       <Link to='/'>
@@ -23,7 +36,9 @@ export const Header = ({ cartCounter, logOn, setLogOn }) => {
         </Link>
 
         {logOn ? (
-          <img src={Usericon} />
+          <Link to='/Userpage'>
+            <img src={Usericon} />
+          </Link>
         ) : (
           <Link to='/LoginPage'>
             <img src={Usericon} />
@@ -31,7 +46,7 @@ export const Header = ({ cartCounter, logOn, setLogOn }) => {
         )}
 
         {logOn ? (
-          <img src={Logouticon} />
+          <img src={Logouticon} onClick={handleLogout} />
         ) : (
           <Link to='/LoginPage'>
             <img src={Loginicon} />

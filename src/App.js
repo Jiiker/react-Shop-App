@@ -4,10 +4,12 @@ import { Layout } from "./components/Layout";
 import Homepage from "./components/Pages/Homepage";
 import Loginpage from "./components/Pages/Loginpage";
 import Registerpage from "./components/Pages/Registerpage";
+import Userpage from "./components/Pages/Userpage";
 import Detailpage from "./components/Pages/Detailpage";
 import Cartpage from "./components/Pages/Cartpage";
 import request from "./api/axios";
 import app from "./Firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 function App() {
   const [productList, setProductList] = useState([]);
@@ -15,7 +17,23 @@ function App() {
   const [cartList, setCartList] = useState([]);
   const [cartCounter, setCartCounter] = useState(0);
   const [logOn, setLogOn] = useState(false);
+  const [userData, setUserData] = useState({});
+  const auth = getAuth();
 
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUserData(user);
+      setLogOn(true);
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/auth.user
+      const uid = user.uid;
+      // ...
+    } else {
+      setLogOn(false);
+      // User is signed out
+      // ...
+    }
+  });
   useEffect(() => {
     const fetchProducts = async () => {
       const data = await request();
@@ -82,6 +100,10 @@ function App() {
             element={<Loginpage logOn={logOn} />}
           ></Route>
           <Route path='/Registerpage' element={<Registerpage />}></Route>
+          <Route
+            path='/Userpage'
+            element={<Userpage userData={userData} />}
+          ></Route>
           <Route
             path='/Detailpage/:productID'
             element={

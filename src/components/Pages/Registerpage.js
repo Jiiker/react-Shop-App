@@ -1,8 +1,10 @@
 import React from "react";
 import "./Registerpage.css";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 function Registerpage() {
+  const navigate = useNavigate();
   const handleSubmit = (event) => {
     event.preventDefault();
     const email = event.target["regiemail"].value;
@@ -16,6 +18,7 @@ function Registerpage() {
         // ...
         event.target["regiemail"].value = "";
         event.target["regipassword"].value = "";
+        navigate("/Loginpage");
       })
       .catch((error) => {
         const errorCode = error.code;

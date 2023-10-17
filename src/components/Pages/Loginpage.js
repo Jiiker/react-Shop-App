@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Loginpage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Registerpage from "./Registerpage";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 
 function Loginpage({ logOn, setLogOn }) {
+  const navigate = useNavigate();
   const handleSignin = (event) => {
     event.preventDefault();
     const email = event.target["loginemail"].value;
@@ -18,27 +15,14 @@ function Loginpage({ logOn, setLogOn }) {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         // Signed in
-        console.log("success login");
-        setLogOn(true);
         const user = userCredential.user;
+        navigate("/");
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
-
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        const uid = user.uid;
-        // ...
-      } else {
-        // User is signed out
-        // ...
-      }
-    });
   };
 
   return (
