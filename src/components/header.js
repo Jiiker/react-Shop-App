@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./header.css";
 import Carticon from "../icons/cart.svg";
 import Usericon from "../icons/person.svg";
@@ -7,7 +7,13 @@ import Logouticon from "../icons/box-arrow-right.svg";
 import { Link } from "react-router-dom";
 import { getAuth, signOut } from "firebase/auth";
 
-export const Header = ({ cartCounter, logOn, setLogOn }) => {
+export const Header = ({
+  cartCounter,
+  logOn,
+  setLogOn,
+  totalCount,
+  cartList,
+}) => {
   function handleLogout() {
     const auth = getAuth();
     signOut(auth)
@@ -19,6 +25,10 @@ export const Header = ({ cartCounter, logOn, setLogOn }) => {
         // An error happened.
       });
   }
+
+  useEffect(() => {
+    totalCount();
+  }, [cartList]);
 
   return (
     <div className='header'>
@@ -46,7 +56,9 @@ export const Header = ({ cartCounter, logOn, setLogOn }) => {
         )}
 
         {logOn ? (
-          <img src={Logouticon} onClick={handleLogout} />
+          <Link to='/Loginpage'>
+            <img src={Logouticon} onClick={handleLogout} />
+          </Link>
         ) : (
           <Link to='/LoginPage'>
             <img src={Loginicon} />

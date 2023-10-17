@@ -20,20 +20,20 @@ function App() {
   const [userData, setUserData] = useState({});
   const auth = getAuth();
 
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUserData(user);
-      setLogOn(true);
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/auth.user
-      const uid = user.uid;
-      // ...
-    } else {
-      setLogOn(false);
-      // User is signed out
-      // ...
-    }
-  });
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUserData(user);
+        setLogOn(true);
+        const uid = user.uid;
+      } else {
+        setLogOn(false);
+      }
+    });
+
+    return () => unsubscribe();
+  }, [auth]);
+
   useEffect(() => {
     const fetchProducts = async () => {
       const data = await request();
@@ -82,6 +82,8 @@ function App() {
               cartCounter={cartCounter}
               logOn={logOn}
               setLogOn={setLogOn}
+              totalCount={totalCount}
+              cartList={cartList}
             />
           }
         >
@@ -90,7 +92,7 @@ function App() {
             element={
               <Homepage
                 productList={productList}
-                setProductList={productList}
+                setProductList={setProductList}
                 productID={productID}
               />
             }
@@ -102,7 +104,7 @@ function App() {
           <Route path='/Registerpage' element={<Registerpage />}></Route>
           <Route
             path='/Userpage'
-            element={<Userpage userData={userData} />}
+            element={<Userpage userData={userData} logOn={logOn} />}
           ></Route>
           <Route
             path='/Detailpage/:productID'
