@@ -18,7 +18,7 @@ function Registerpage() {
         // ...
         event.target["regiemail"].value = "";
         event.target["regipassword"].value = "";
-        navigate("/Loginpage");
+        navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
