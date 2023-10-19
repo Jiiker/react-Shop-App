@@ -4,6 +4,7 @@
 
 - react-router-dom 을 이용해서 여러 페이지에 접근이 가능하도록 Route 설정.(Homepage, Detailpage, Cartpage, Loginpage, Registerpage, Userpage)
 - useState를 이용해서 상태 관리(redux로 해보고 싶었지만.. 아직 잘 다룰 줄 몰라서..)
+- Firebase로 로그인 기능 구현
 
 
 ### [카테고리 탭]
